@@ -1,0 +1,34 @@
+{
+  "name": "weatherapi",
+  "version": "1.0.0",
+  "description": "this a an API for getting the we\u001b[D\u001b[Dglobal\u001b[C\u001b[C\u001b[Dweather",
+  "main": "index.js",
+  "scripts": {
+    "dev": "yarn && nodemon --exec babel-node ./server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.10.0",
+    "@babel/core": "^7.10.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.10.0",
+    "apollo-server-express": "^2.17.0",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "nodemon": "^2.0.4"
+  }
+}
