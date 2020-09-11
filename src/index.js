@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import App from "./App";
+import App from './App';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
   navigator.serviceWorker
-    .register("./serviceworker.js")
-    .then((reg) => console.log("Success: ", reg.scope))
-    .catch((err) => console.log("Failure: ", err));
+    .register('./serviceworker.js')
+    .then((reg) => console.log('Success: ', reg.scope))
+    .catch((err) => console.log('Failure: ', err));
 });
