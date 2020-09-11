@@ -1,26 +1,40 @@
 import React, { useState } from 'react';
+import { useQuery } from 'react-apollo';
 
 import fetchWeather from './api/fetchWeather';
+import GET_WEATHER from './apollo/queries/getWeather';
 import './App.css';
 
 const App = () => {
-  const [query, setQuery] = useState('');
+  const [country, setCountry] = useState('');
   const [wifi, setWifi] = useState('online');
   const [weather, setWeather] = useState({});
 
-  const search = async (e) => {
+  const { data, error } = useQuery(GET_WEATHER, { variables: { country } });
+
+  // const search = async (e) => {
+  //   setCountry(e.target.value);
+  //   if (e.key === 'Enter') {
+  //     await fetchWeather(country)
+  //       .then((body) => {
+  //         setWeather(body);
+  //         localStorage.setItem(`${country}_weather`, JSON.stringify(body));
+  //         setCountry('');
+  //       })
+  //       .catch(() => {
+  //         setWifi('offline');
+  //         const getLocalData = localStorage.getItem(`${country}_weather`);
+  //         setWeather(JSON.parse(getLocalData));
+  //       });
+  //   }
+  // };
+
+  const search = (e) => {
+    setCountry(e.target.value);
     if (e.key === 'Enter') {
-      await fetchWeather(query)
-        .then((data) => {
-          setWeather(data);
-          localStorage.setItem(`${query}_weather`, JSON.stringify(data));
-          setQuery('');
-        })
-        .catch((err) => {
-          setWifi('offline');
-          const getLocalData = localStorage.getItem(`${query}_weather`);
-          setWeather(JSON.parse(getLocalData));
-        });
+      setWeather(data && data.getWeather);
+      localStorage.setItem(`${country}_weather`, JSON.stringify(data && data.getWeather));
+      setCountry('');
     }
   };
 
@@ -30,11 +44,11 @@ const App = () => {
         type="text"
         className="search"
         placeholder="Search..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={country}
+        onChange={search}
         onKeyPress={search}
       />
-      {weather && weather.main && (
+      {weather.main && (
         <div className="city">
           <h2 className="city-name">
             <span>{weather.name}</span>

@@ -6,6 +6,7 @@ module.exports.WeatherTypes = gql`
     name: String
     weather: [WeatheDetail]
     main: Main
+    sys: Sys
   }
 
   type WeatheDetail {
@@ -14,11 +15,15 @@ module.exports.WeatherTypes = gql`
     id: Int
   }
   
+  type Sys {
+    country: String
+  }
+
   type Main {
     feels_like: Float
     humidity: Int
     pressure: Int
-    temp: Int
+    temp: Float
     temp_max: Int
     temp_min: Int
   }
