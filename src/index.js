@@ -12,7 +12,8 @@ ReactDOM.render(
     <ApolloHooksProvider client={client}>
       <App />
     </ApolloHooksProvider>
-  </ApolloProvider>, document.getElementById('root'),
+  </ApolloProvider>,
+  document.getElementById('root'),
 );
 
 window.addEventListener('load', () => {
