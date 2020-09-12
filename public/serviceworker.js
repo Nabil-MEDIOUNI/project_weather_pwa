@@ -14,9 +14,6 @@ const localhosturlsToCache = [
 const netlifyurlsToCache = [
   '/',
   'index.html',
-  '/static/js/2.52e357d6.chunk.js',
-  '/static/js/main.d64f3549.chunk.js',
-  '/static/css/main.2f90883e.chunk.css',
   '/static/media/bg.80e19d92.jpg',
   'images/logo.png',
 ];
