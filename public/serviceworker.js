@@ -15,6 +15,7 @@ const netlifyurlsToCache = [
   '/',
   'index.html',
   '/static/media/bg.80e19d92.jpg',
+  "/static/css/main.ce4d5af7.chunk.css ",
   'images/logo.png',
 ];
 
