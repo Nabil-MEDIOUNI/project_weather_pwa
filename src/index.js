@@ -1,13 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 
-import App from "./App";
+import { client } from './apollo/initApollo';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import App from './App';
 
-window.addEventListener("load", () => {
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <ApolloHooksProvider client={client}>
+      <App />
+    </ApolloHooksProvider>
+  </ApolloProvider>,
+  document.getElementById('root'),
+);
+
+window.addEventListener('load', () => {
   navigator.serviceWorker
-    .register("./serviceworker.js")
-    .then((reg) => console.log("Success: ", reg.scope))
-    .catch((err) => console.log("Failure: ", err));
+    .register('./serviceworker.js')
+    .then((reg) => console.log('Success: ', reg.scope))
+    .catch((err) => console.log('Failure: ', err));
 });
