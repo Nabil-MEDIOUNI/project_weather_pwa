@@ -13,6 +13,7 @@
 
 #api
 /server/node_modules
+/server/nodemon.json
 
 # misc
 .DS_Store
