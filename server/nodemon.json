@@ -1,6 +1,6 @@
 {
   "env": {
     "REACT_APP_API_URL": "http://localhost:3000",
-    "LOCALHOST_PORT": "http://localhost:8000/graphql",
+    "LOCALHOST_PORT": "http://localhost:8000/graphql"
   }
 }
