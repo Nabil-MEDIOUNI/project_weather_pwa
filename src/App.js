@@ -9,6 +9,7 @@ const App = () => {
   const [country, setCountry] = useState('');
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
+  const [wifi, setWifi] = useState('online');
   const [wifiError, setWifiError] = useState({
     message: '',
   });
@@ -24,11 +25,12 @@ const App = () => {
     if (error && error.message === 'Network error: Failed to fetch') {
       const getLocalData = localStorage.getItem(`${query}_weather`);
       setWifiError({ message: "GraphQl Error: You're working offline" });
+      setWifi('offline');
       if (getLocalData !== undefined) setWeather(JSON.parse(getLocalData));
     }
     if (data !== undefined) {
       setWeather(data && data.getWeather);
-      if (!error)localStorage.setItem(`${query}_weather`, JSON.stringify(data && data.getWeather));
+      if (!error) localStorage.setItem(`${query}_weather`, JSON.stringify(data && data.getWeather));
     }
   }, [country, data, error, query]);
 
@@ -52,6 +54,7 @@ const App = () => {
       setAlert={setAlert}
       loading={loading}
       error={wifiError}
+      wifi={wifi}
     />
   );
 };
