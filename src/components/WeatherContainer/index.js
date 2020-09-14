@@ -14,7 +14,6 @@ const WeatherContainer = ({
         type="text"
         className="search"
         placeholder="Search..."
-        autoFocus
         value={country}
         onChange={search}
         onKeyPress={search}
