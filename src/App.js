@@ -19,18 +19,20 @@ const App = () => {
   });
 
   useEffect(() => {
-    if (error && error.message !== undefined) {
-      setWifiError({ message: error && error.message });
+    if (error?.message !== undefined) {
+      setWifiError({ message: error?.message });
     }
-    if (error && error.message === 'Network error: Failed to fetch') {
+
+    if (error?.message === 'Network error: Failed to fetch') {
       const getLocalData = localStorage.getItem(`${query}_weather`);
       setWifiError({ message: "GraphQl Error: You're working offline" });
       setWifi('offline');
       if (getLocalData !== undefined) setWeather(JSON.parse(getLocalData));
     }
+
     if (data !== undefined) {
-      setWeather(data && data.getWeather);
-      if (!error) localStorage.setItem(`${query}_weather`, JSON.stringify(data && data.getWeather));
+      setWeather(data?.getWeather);
+      if (!error) localStorage.setItem(`${query}_weather`, JSON.stringify(data?.getWeather));
     }
   }, [country, data, error, query]);
 
