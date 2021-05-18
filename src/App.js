@@ -1,63 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-apollo';
+import React, { useState } from "react";
 
-import GET_WEATHER from './apollo/queries/getWeather';
-import WeatherContainer from './components/WeatherContainer';
+import { fetchWeather } from "./api/fetchWeather";
+import "./App.css";
 
 const App = () => {
-  const [openAlert, setAlert] = useState(false);
-  const [country, setCountry] = useState('');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
-  const [wifi, setWifi] = useState('online');
-  const [wifiError, setWifiError] = useState({
-    message: '',
-  });
 
-  const { data, loading, error } = useQuery(GET_WEATHER, {
-    variables: { country: query },
-  });
+  const search = async (e) => {
+    if (e.key === "Enter") {
+      const data = await fetchWeather(query);
 
-  useEffect(() => {
-    if (error?.message !== undefined) {
-      setWifiError({ message: error?.message });
-    }
-
-    if (error?.message === 'Network error: Failed to fetch') {
-      const getLocalData = localStorage.getItem(`${query}_weather`);
-      setWifiError({ message: "GraphQl Error: You're working offline" });
-      setWifi('offline');
-      if (getLocalData !== undefined) setWeather(JSON.parse(getLocalData));
-    }
-
-    if (data !== undefined) {
-      setWeather(data?.getWeather);
-      if (!error) localStorage.setItem(`${query}_weather`, JSON.stringify(data?.getWeather));
-    }
-  }, [country, data, error, query]);
-
-  const search = (e) => {
-    setCountry(e.target.value);
-    if (e.key === 'Enter') {
-      setQuery(country);
-      setCountry('');
-      setWeather({});
-      setAlert(true);
-      setWifiError('');
+      setWeather(data);
+      setQuery("");
     }
   };
 
   return (
-    <WeatherContainer
-      weather={weather}
-      country={country}
-      search={search}
-      openAlert={openAlert}
-      setAlert={setAlert}
-      loading={loading}
-      error={wifiError}
-      wifi={wifi}
-    />
+    <div className="main-container">
+
+      <input
+        type="text"
+        className="search"
+        placeholder="Search..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyPress={search}
+      />
+
+      {weather.main && (
+        <div className="city">
+          <h2 className="city-name">
+            <span>{weather.name}</span>
+            <sup>{weather.sys.country}</sup>
+          </h2>
+          <div className="city-temp">
+            {Math.round(weather.main.temp)}
+            <sup>&deg;C</sup>
+          </div>
+          <div className="info">
+            <img
+              className="city-icon"
+              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+              alt={weather.weather[0].description}
+            />
+            <p>{weather.weather[0].description}</p>
+          </div>
+        </div>
+      )}
+
+    </div>
   );
 };
 
